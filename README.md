@@ -6,11 +6,112 @@
 - Natacha Castrillon
 - Ruben Dario Suarez Amaya
 
+## Problema vs patron seleccionado:
+- ### Problema 1: Prototype
+  - Prototype es un patrón de diseño creacional que nos permite copiar objetos existentes sin que el código dependa de sus clases.
 
-## UML Diagrams:
+- ### Problema 2
+
+  La empresa está desarrollando una aplicación de mensajería en tiempo real que permite a los usuarios comunicarse desde múltiples dispositivos. Cada vez que un usuario recibe un nuevo mensaje, todos los dispositivos del usuario deben ser notificados para que el mensaje se muestre en cada uno de ellos. Para mantener la flexibilidad y desacoplar la lógica de notificación de la aplicación principal. 
 
 
-### Ejercicio 4 Sistema de Gestión de Tareas
+  #### El patrón que escoja deberá permitir:
+
+  1. Notificación en Tiempo Real: Cada dispositivo del usuario debe recibir una notificación cuando llegue un nuevo mensaje.
+  2. Desacoplamiento: La aplicación de mensajería debe poder notificar a cualquier número de dispositivos sin saber detalles específicos sobre cada uno de ellos.
+  3. Flexibilidad: Los dispositivos pueden ser añadidos o eliminados en tiempo de ejecución sin necesidad de modificar la lógica principal de la aplicación.
+
+### Patron seleccionado : Observer
+- > Observer es un patrón de diseño de comportamiento que te permite definir un mecanismo de suscripción para notificar a varios objetos sobre cualquier evento que le suceda al objeto que están observando, que en este caso es objeto de observacion es el mensaje.
+  
+### Explicación:
+
+- Basados en el planteamiento del problema, detectamos dos puntos claves importantes: 
+ 
+   > Tiempo Real / Recibe un nuevo mensaje.
+
+  > Esto quiere decir que un evento debe disparar una acción en tiempo real, este evento sería la recepción de un nuevo mensaje y la acción es la notificación a los diferentes dispositivos por lo cual debe existir un observador que a la recepción del mensaje dispare el envío de notificaciones, esta básicamente es la problemática que resuelve el patrón observador.
+
+
+*	Interfaz Observer: Define el método update que será llamado por el sujeto cuando hay un nuevo mensaje.
+*	Interfaz Subject: Define los métodos para registrar, eliminar y notificar a los observadores.
+*	Clase MessageService: Implementa la interfaz Subject y gestiona la lista de observadores. Cuando recibe un nuevo mensaje, notifica a todos los observadores.
+*	Clases MobileDevice y TabletDevice: Implementan la interfaz Observer y definen cómo deben reaccionar los dispositivos cuando reciben un nuevo mensaje.
+*	Clase Main: Prueba la implementación del patrón Observer registrando varios dispositivos, enviando mensajes y demostrando la flexibilidad de agregar o eliminar dispositivos en tiempo de ejecución.
+
+Este diseño asegura notificaciones en tiempo real, desacoplamiento y flexibilidad para añadir o eliminar dispositivos sin modificar la lógica principal de la aplicación.
+
+### Diagrama UML :
+
+```mermaid
+classDiagram
+direction BT
+class Main {
+  + Main() 
+  + main(String[]) void
+}
+class MessageService {
+  + MessageService() 
+  + registerObserver(Observer) void
+  + removeObserver(Observer) void
+  + receiveMessage(String) void
+  + notifyObservers(String) void
+}
+class MobileDevice {
+  + MobileDevice(String) 
+  + update(String) void
+}
+class Observer {
+<<Interface>>
+  + update(String) void
+}
+class Subject {
+<<Interface>>
+  + registerObserver(Observer) void
+  + notifyObservers(String) void
+  + removeObserver(Observer) void
+}
+class TabletDevice {
+  + TabletDevice(String) 
+  + update(String) void
+}
+
+Main  ..>  MessageService : «create»
+Main  ..>  MobileDevice : «create»
+Main  ..>  TabletDevice : «create»
+MessageService "1" *--> "observers *" Observer 
+MessageService  ..>  Subject 
+MobileDevice  ..>  Observer 
+TabletDevice  ..>  Observer 
+
+```
+
+- ### Problema 3: Template (ninguno le pego)
+  - Template Method es un patrón de diseño de comportamiento que define el esqueleto de un algoritmo en la superclase pero permite que las subclases sobrescriban pasos del algoritmo sin cambiar su estructura.
+
+- ### Problema 4
+
+  Imagina un sistema de gestión de tareas en el que los usuarios pueden crear, editar,
+  eliminar y completar tareas. Cada acción realizada por el usuario corresponde a una acción
+  que debe ser ejecutada. Además, es importante mantener un registro de todas las acciones
+  realizadas para permitir la reversión de las mismas si es necesario.
+
+  #### El patrón que escoja deberá permitir:
+
+  1. Desacopla el invocador de los objetos que realizan las acciones.
+  2. Permite la extensión de nuevas operaciones sin modificar el código existente.
+  3. Facilita el registro de acciones para realizar operaciones de reversión.
+
+### Patron seleccionado : Command
+> - Command es un patrón de diseño de comportamiento que convierte una solicitud en un objeto independiente que contiene toda la información sobre la solicitud. Esta transformación te permite parametrizar los métodos con diferentes solicitudes, retrasar o poner en cola la ejecución de una solicitud y soportar operaciones que no se pueden realizar.
+ 
+### Explicación:
+
+> - En este caso se tuvo en cuenta el requerimiento de las diferentes acciones que se pueden realizar, para esto vemos importante desacoplar cada acción del invocador y esto es algo que se puede resolver segregando los comandos en clases command.
+> - Commant tambien nos permite agregar nuevos requerimientos de forma secilla asegurando la extensibilidad.
+> - Finalmente el patron command nos permite tener un registro que nos ayuda a rastrear el historial de operaciones ejecutadas y hace posible revertir una operación si es necesario.
+
+### Diagrama UML :
 ```mermaid
 classDiagram
 direction BT
@@ -78,91 +179,5 @@ EditTaskCommand  ..>  Command
 
 ```
 
-## Problema vs patron seleccionado:
-- ### Problema 1: Prototype
-  - Prototype es un patrón de diseño creacional que nos permite copiar objetos existentes sin que el código dependa de sus clases.
-
-- ### Problema 2
-
-  La empresa está desarrollando una aplicación de mensajería en tiempo real que permite a los usuarios comunicarse desde múltiples dispositivos. Cada vez que un usuario recibe un nuevo mensaje, todos los dispositivos del usuario deben ser notificados para que el mensaje se muestre en cada uno de ellos. Para mantener la flexibilidad y desacoplar la lógica de notificación de la aplicación principal. 
-
-
-  El patrón que escoja deberá permitir:
-
-  1. Notificación en Tiempo Real: Cada dispositivo del usuario debe recibir una notificación cuando llegue un nuevo mensaje.
-  2. Desacoplamiento: La aplicación de mensajería debe poder notificar a cualquier número de dispositivos sin saber detalles específicos sobre cada uno de ellos.
-  3. Flexibilidad: Los dispositivos pueden ser añadidos o eliminados en tiempo de ejecución sin necesidad de modificar la lógica principal de la aplicación.
-
-#### Patron seleccionado : Observer
-- > Observer es un patrón de diseño de comportamiento que te permite definir un mecanismo de suscripción para notificar a varios objetos sobre cualquier evento que le suceda al objeto que están observando, que en este caso es objeto de observacion es el mensaje.
-  
-Explicación:
-
-- Basados en el planteamiento del problema, detectamos dos puntos claves importantes: 
- 
-   > Tiempo Real / Recibe un nuevo mensaje.
-
-  > Esto quiere decir que un evento debe disparar una acción en tiempo real, este evento sería la recepción de un nuevo mensaje y la acción es la notificación a los diferentes dispositivos por lo cual debe existir un observador que a la recepción del mensaje dispare el envío de notificaciones, esta básicamente es la problemática que resuelve el patrón observador.
-
-
-*	Interfaz Observer: Define el método update que será llamado por el sujeto cuando hay un nuevo mensaje.
-*	Interfaz Subject: Define los métodos para registrar, eliminar y notificar a los observadores.
-*	Clase MessageService: Implementa la interfaz Subject y gestiona la lista de observadores. Cuando recibe un nuevo mensaje, notifica a todos los observadores.
-*	Clases MobileDevice y TabletDevice: Implementan la interfaz Observer y definen cómo deben reaccionar los dispositivos cuando reciben un nuevo mensaje.
-*	Clase Main: Prueba la implementación del patrón Observer registrando varios dispositivos, enviando mensajes y demostrando la flexibilidad de agregar o eliminar dispositivos en tiempo de ejecución.
-
-Este diseño asegura notificaciones en tiempo real, desacoplamiento y flexibilidad para añadir o eliminar dispositivos sin modificar la lógica principal de la aplicación.
-
-### Diagrama UML :
-
-```mermaid
-classDiagram
-direction BT
-class Main {
-  + Main() 
-  + main(String[]) void
-}
-class MessageService {
-  + MessageService() 
-  + registerObserver(Observer) void
-  + removeObserver(Observer) void
-  + receiveMessage(String) void
-  + notifyObservers(String) void
-}
-class MobileDevice {
-  + MobileDevice(String) 
-  + update(String) void
-}
-class Observer {
-<<Interface>>
-  + update(String) void
-}
-class Subject {
-<<Interface>>
-  + registerObserver(Observer) void
-  + notifyObservers(String) void
-  + removeObserver(Observer) void
-}
-class TabletDevice {
-  + TabletDevice(String) 
-  + update(String) void
-}
-
-Main  ..>  MessageService : «create»
-Main  ..>  MobileDevice : «create»
-Main  ..>  TabletDevice : «create»
-MessageService "1" *--> "observers *" Observer 
-MessageService  ..>  Subject 
-MobileDevice  ..>  Observer 
-TabletDevice  ..>  Observer 
-
-```
-
-- ### Problema 3: Template (ninguno le pego)
-  - Template Method es un patrón de diseño de comportamiento que define el esqueleto de un algoritmo en la superclase pero permite que las subclases sobrescriban pasos del algoritmo sin cambiar su estructura.
-
-- ### Problema 4: Command (ninguno le pego y tenemos dudas)
-  - Command es un patrón de diseño de comportamiento que convierte una solicitud en un objeto independiente que contiene toda la información sobre la solicitud. Esta transformación te permite parametrizar los métodos con diferentes solicitudes, retrasar o poner en cola la ejecución de una solicitud y soportar operaciones que no se pueden realizar. 
-  
 - ### Problema 5: Decorator
   - Decorator es un patrón de diseño estructural que te permite añadir funcionalidades a objetos colocando estos objetos dentro de objetos encapsuladores especiales que contienen estas funcionalidades

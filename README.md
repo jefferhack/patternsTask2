@@ -104,6 +104,17 @@ Explicación:
 
   > Esto quiere decir que un evento debe disparar una acción en tiempo real, este evento sería la recepción de un nuevo mensaje y la acción es la notificación a los diferentes dispositivos por lo cual debe existir un observador que a la recepción del mensaje dispare el envío de notificaciones, esta básicamente es la problemática que resuelve el patrón observador.
 
+
+*	Interfaz Observer: Define el método update que será llamado por el sujeto cuando hay un nuevo mensaje.
+*	Interfaz Subject: Define los métodos para registrar, eliminar y notificar a los observadores.
+*	Clase MessageService: Implementa la interfaz Subject y gestiona la lista de observadores. Cuando recibe un nuevo mensaje, notifica a todos los observadores.
+*	Clases MobileDevice y TabletDevice: Implementan la interfaz Observer y definen cómo deben reaccionar los dispositivos cuando reciben un nuevo mensaje.
+*	Clase Main: Prueba la implementación del patrón Observer registrando varios dispositivos, enviando mensajes y demostrando la flexibilidad de agregar o eliminar dispositivos en tiempo de ejecución.
+
+Este diseño asegura notificaciones en tiempo real, desacoplamiento y flexibilidad para añadir o eliminar dispositivos sin modificar la lógica principal de la aplicación.
+
+### Diagrama UML :
+
 ```mermaid
 classDiagram
 direction BT

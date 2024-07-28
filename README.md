@@ -27,7 +27,7 @@
   ### Explicación: 
   Basados en la información entregada por el problema se detecta que la información clave del mismo es la necesidad de clonar objetos con sus diferentes caracteristicas y la posibilidad de agregar otros atributos a los objetos clonados. Para el proyecto se genera las siguientes interfaces y clases: 
 
-    * *Heroe:* Define el método de clone que utilizará el resto de las clases
+    * *Heroe:* Clase abstracta que define el método de clone y creación que utilizará el resto de las clases. Además de tener los atributos iniciales
     * *Guerrero, Arquero, Mago:* Clase extendida de heroe que espefica las particularidades de los heros
     * *Habilidad:* Representa las habilidades específicas de un héroe.
     * *AspectoVisual:* Representa los aspectos visuales específicos de un héroe.

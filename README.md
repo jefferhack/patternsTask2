@@ -342,6 +342,89 @@ EditTaskCommand  ..>  Command
 
 ```
 
-- ### Problema 5: Decorator
-    - Decorator es un patrón de diseño estructural que te permite añadir funcionalidades a objetos colocando estos
-      objetos dentro de objetos encapsuladores especiales que contienen estas funcionalidades
+- ### Problema 5: 
+
+  Imagina que estamos desarrollando un sistema para gestionar la decoración de habitaciones en un hotel de lujo. Cada habitación puede tener una decoración básica, pero los huéspedes pueden solicitar mejoras y adiciones para personalizar su experiencia. Estas mejoras pueden incluir servicios adicionales, como flores frescas, chocolate gourmet, vino de alta calidad, etc. 
+
+  Aplicación del Patrón: En este escenario, el patrón que se seleccione se utilizará para agregar características adicionales y personalizadas a las habitaciones del hotel de manera dinámica.
+
+  El patrón que seleccione debe tener los siguientes beneficios: 
+
+  - Permite agregar nuevas funcionalidades a objetos existentes de manera dinámica.
+  - Proporciona una alternativa flexible a la subclase para extender funcionalidades. 
+  - Mejora la legibilidad y el mantenimiento del código al separar las preocupaciones.
+
+  
+  ### Patrón seleccionado : Decorator
+
+    >    Decorator es un patrón de diseño estructural que te permite añadir funcionalidades a objetos colocando estos objetos dentro de objetos encapsuladores especiales que contienen estas funcionalidades.
+      
+    >  Dicho de otra manera: El objetivo de este patrón es expandir la funcionalidad de las clases de manera dinámica en tiempo de ejecución.
+
+    >  Según este patrón, cualquier objeto puede complementarse con un comportamiento deseado sin afectar las funcionalidades de otros objetos de la misma clase.
+
+    >  Este es uno de los patrones estructurales más utilizados.
+
+  ### Explicación: 
+  
+   > La razón principal de la selección de este patrón obedece al requerimiento de permitir agregar nuevas funcionalidades a objetos existentes de manera dinámica. Esto complementado con la alternativa flexible a la subclase para extender funcionalidades.
+
+   > En este caso vemos como la Clase FloresFrescas extiende de la clase HabitacionDecorator para indicar los valores adicionales de alquiler de la habitación cuando se soliciten estos servicios o características adicionales.
+    
+   > Con esto también certificamos lo que dice el patrón en relación a que cualquier objeto puede complementarse con un comportamiento deseado sin afectar las funcionalidades de otros objetos de la misma clase.
+
+### Diagrama UML :
+
+```mermaid
+classDiagram
+direction BT
+class ChocolateGourmet {
+  + ChocolateGourmet(Habitacion) 
+  + getpisoHabitacion() String
+   String descripcion
+   double costo
+}
+class FloresFrescas {
+  + FloresFrescas(Habitacion) 
+  + getpisoHabitacion() String
+   String descripcion
+   double costo
+}
+class Habitacion {
+<<Interface>>
+  + getpisoHabitacion() String
+  + getpisoHabitaciona() String
+   double categoria
+   String descripcion
+   double costo
+}
+class HabitacionBasica {
+  + HabitacionBasica() 
+  + getpisoHabitacion() String
+  + getpisoHabitaciona() String
+   double categoria
+   String descripcion
+   double costo
+}
+class HabitacionDecorator {
+  + HabitacionDecorator(Habitacion) 
+  + getpisoHabitaciona() String
+   double categoria
+   String descripcion
+   double costo
+}
+class Hotel {
+  + Hotel() 
+  + main(String[]) void
+}
+class Main {
+  + Main() 
+  + main(String[]) void
+}
+
+ChocolateGourmet  -->  HabitacionDecorator 
+FloresFrescas  -->  HabitacionDecorator 
+HabitacionBasica  ..>  Habitacion 
+HabitacionDecorator  ..>  Habitacion 
+
+```

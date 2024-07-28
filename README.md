@@ -35,7 +35,7 @@
 
   ### Diagrama UML
   
-´´´ mermaid
+```mermaid
 
   classDiagram
 direction BT
@@ -70,7 +70,7 @@ Guerrero  -->  Heroe
 Heroe  ..>  Prototype 
 Mago  -->  Heroe 
 
-´´´ 
+``` 
 
 - ### Problema 2
 

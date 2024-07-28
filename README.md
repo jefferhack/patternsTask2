@@ -188,62 +188,65 @@ TabletDevice  ..>  Observer
 #### Patrón seleccionado: Template Method
 - >Template Method es un patrón de diseño de comportamiento que define el esqueleto de un algoritmo en la superclase pero permite que las subclases sobrescriban pasos del algoritmo sin cambiar su estructura.
 
-Explicación:
-> - En términos de encapsulamiento, se define la estructura/comportamiento base en una clase abstracta "Order"
-> - Para la flexibilidad, se realiza una extensión de la clase abstracta "Order" en "OrderFood", "OrderBeverage" y "OrderDessert" modificando los pasos/comportamientos de acuerdo al tipo de pedido.
-> - Al reutilizar la estructura, se evita la duplicidad de código. Además que cualquier cambio a la estructura base se puede realizar en un solo lugar (Clase base "Order")
-> - Este patrón de diseño es ideal cuando se cuenta con una serie de pasos comunes en un algoritmo y las subclases deben seguirlos.
+### Explicación:
+    
+  > - En términos de encapsulamiento, se define la estructura/comportamiento base en una clase abstracta "Order"
+  > - Para la flexibilidad, se realiza una extensión de la clase abstracta "Order" en "OrderFood", "OrderBeverage" y "OrderDessert" modificando los pasos/comportamientos de acuerdo al tipo de pedido.
+  > - Al reutilizar la estructura, se evita la duplicidad de código. Además que cualquier cambio a la estructura base se puede realizar en un solo lugar (Clase base "Order")
+  > - Este patrón de diseño es ideal cuando se cuenta con una serie de pasos comunes en un algoritmo y las subclases deben seguirlos.
 
-Explicación de las clases creadas:
-> - *Order:* Clase abstracta que contiene el comportamientos/pasos comunes. 
-> - *OrderBeverage:* Clase extendida de "Order" que ejecuta los comportamientos según las necesidades del tipo de pedido "Beverage". 
-> - *OrderFood:* Clase extendida de "Order" que ejecuta los comportamientos según las necesidades del tipo de pedido "Food".
-> - *OrderDessert:* Clase extendida de "Order" que ejecuta los comportamientos según las necesidades del tipo de pedido "Dessert".
-> - *Main:* Utiliza un menú sencillo para probar la implementación del patrón, donde se selecciona el tipo de pedido (Food, Beverage o Dessert) y la cantidad para que el sistema verifique la disponibilidad de los productos de acuerdo al stock, prepare el pedido y calcule el precio del mismo, devolviendo estos valores al usuario final.
-#### Diagrama UML :
-```mermaid
-classDiagram
-direction BT
-class Main {
-  + Main() 
-  + main(String[]) void
-}
-class Order {
-  ~ Order() 
-  ~ int quantity
-  ~ verifyAvailability(int) boolean
-  ~ prepare() void
-  ~ calculatePrice(int) double
-  ~ takeOrder() boolean
-  ~ deliverOrder(int, double) void
-}
-class OrderBeverage {
-  + OrderBeverage(int) 
-  + calculatePrice(int) double
-  ~ prepare() void
-  + verifyAvailability(int) boolean
-  + deliverOrder(int, double) void
-}
-class OrderDessert {
-  + OrderDessert(int) 
-  + deliverOrder(int, double) void
-  + verifyAvailability(int) boolean
-  + calculatePrice(int) double
-  ~ prepare() void
-}
-class OrderFood {
-  + OrderFood(int) 
-  + deliverOrder(int, double) void
-  + calculatePrice(int) double
-  + verifyAvailability(int) boolean
-  + prepare() void
-}
+  Explicación de las clases creadas:
+  > - *Order:* Clase abstracta que contiene el comportamientos/pasos comunes. 
+  > - *OrderBeverage:* Clase extendida de "Order" que ejecuta los comportamientos según las necesidades del tipo de pedido "Beverage". 
+  > - *OrderFood:* Clase extendida de "Order" que ejecuta los comportamientos según las necesidades del tipo de pedido "Food".
+  > - *OrderDessert:* Clase extendida de "Order" que ejecuta los comportamientos según las necesidades del tipo de pedido "Dessert".
+  > - *Main:* Utiliza un menú sencillo para probar la implementación del patrón, donde se selecciona el tipo de pedido (Food, Beverage o Dessert) y la cantidad para que el sistema verifique la disponibilidad de los productos de acuerdo al stock, prepare el pedido y calcule el precio del mismo, devolviendo estos valores al usuario final.
 
-OrderBeverage  -->  Order 
-OrderDessert  -->  Order 
-OrderFood  -->  Order 
+  #### Diagrama UML :
 
-```
+  ```mermaid
+  classDiagram
+  direction BT
+  class Main {
+    + Main() 
+    + main(String[]) void
+  }
+  class Order {
+    ~ Order() 
+    ~ int quantity
+    ~ verifyAvailability(int) boolean
+    ~ prepare() void
+    ~ calculatePrice(int) double
+    ~ takeOrder() boolean
+    ~ deliverOrder(int, double) void
+  }
+  class OrderBeverage {
+    + OrderBeverage(int) 
+    + calculatePrice(int) double
+    ~ prepare() void
+    + verifyAvailability(int) boolean
+    + deliverOrder(int, double) void
+  }
+  class OrderDessert {
+    + OrderDessert(int) 
+    + deliverOrder(int, double) void
+    + verifyAvailability(int) boolean
+    + calculatePrice(int) double
+    ~ prepare() void
+  }
+  class OrderFood {
+    + OrderFood(int) 
+    + deliverOrder(int, double) void
+    + calculatePrice(int) double
+    + verifyAvailability(int) boolean
+    + prepare() void
+  }
+
+  OrderBeverage  -->  Order 
+  OrderDessert  -->  Order 
+  OrderFood  -->  Order 
+
+  ```
 - ### Problema 4
 
   Imagina un sistema de gestión de tareas en el que los usuarios pueden crear, editar,
@@ -357,74 +360,74 @@ EditTaskCommand  ..>  Command
   
   ### Patrón seleccionado : Decorator
 
-    >    Decorator es un patrón de diseño estructural que te permite añadir funcionalidades a objetos colocando estos objetos dentro de objetos encapsuladores especiales que contienen estas funcionalidades.
-      
-    >  Dicho de otra manera: El objetivo de este patrón es expandir la funcionalidad de las clases de manera dinámica en tiempo de ejecución.
-
-    >  Según este patrón, cualquier objeto puede complementarse con un comportamiento deseado sin afectar las funcionalidades de otros objetos de la misma clase.
-
-    >  Este es uno de los patrones estructurales más utilizados.
+    > Decorator es un patrón de diseño estructural que te permite añadir funcionalidades a objetos colocando estos objetos dentro de objetos encapsuladores especiales que contienen estas funcionalidades.
+    >
+    > Dicho de otra manera: El objetivo de este patrón es expandir la funcionalidad de las clases de manera dinámica en tiempo de ejecución.
+    >
+    > Según este patrón, cualquier objeto puede complementarse con un comportamiento deseado sin afectar las funcionalidades de otros objetos de la misma clase.
+    >
+    > Este es uno de los patrones estructurales más utilizados.
 
   ### Explicación: 
   
    > La razón principal de la selección de este patrón obedece al requerimiento de permitir agregar nuevas funcionalidades a objetos existentes de manera dinámica. Esto complementado con la alternativa flexible a la subclase para extender funcionalidades.
+  >
+  > En este caso vemos como la Clase FloresFrescas extiende de la clase HabitacionDecorator para indicar los valores adicionales de alquiler de la habitación cuando se soliciten estos servicios o características adicionales.
+  >  
+  > Con esto también certificamos lo que dice el patrón en relación a que cualquier objeto puede complementarse con un comportamiento deseado sin afectar las funcionalidades de otros objetos de la misma clase.
 
-   > En este caso vemos como la Clase FloresFrescas extiende de la clase HabitacionDecorator para indicar los valores adicionales de alquiler de la habitación cuando se soliciten estos servicios o características adicionales.
-    
-   > Con esto también certificamos lo que dice el patrón en relación a que cualquier objeto puede complementarse con un comportamiento deseado sin afectar las funcionalidades de otros objetos de la misma clase.
+  ### Diagrama UML :
 
-### Diagrama UML :
+  ```mermaid
+  classDiagram
+  direction BT
+  class ChocolateGourmet {
+    + ChocolateGourmet(Habitacion) 
+    + getpisoHabitacion() String
+    String descripcion
+    double costo
+  }
+  class FloresFrescas {
+    + FloresFrescas(Habitacion) 
+    + getpisoHabitacion() String
+    String descripcion
+    double costo
+  }
+  class Habitacion {
+  <<Interface>>
+    + getpisoHabitacion() String
+    + getpisoHabitaciona() String
+    double categoria
+    String descripcion
+    double costo
+  }
+  class HabitacionBasica {
+    + HabitacionBasica() 
+    + getpisoHabitacion() String
+    + getpisoHabitaciona() String
+    double categoria
+    String descripcion
+    double costo
+  }
+  class HabitacionDecorator {
+    + HabitacionDecorator(Habitacion) 
+    + getpisoHabitaciona() String
+    double categoria
+    String descripcion
+    double costo
+  }
+  class Hotel {
+    + Hotel() 
+    + main(String[]) void
+  }
+  class Main {
+    + Main() 
+    + main(String[]) void
+  }
 
-```mermaid
-classDiagram
-direction BT
-class ChocolateGourmet {
-  + ChocolateGourmet(Habitacion) 
-  + getpisoHabitacion() String
-   String descripcion
-   double costo
-}
-class FloresFrescas {
-  + FloresFrescas(Habitacion) 
-  + getpisoHabitacion() String
-   String descripcion
-   double costo
-}
-class Habitacion {
-<<Interface>>
-  + getpisoHabitacion() String
-  + getpisoHabitaciona() String
-   double categoria
-   String descripcion
-   double costo
-}
-class HabitacionBasica {
-  + HabitacionBasica() 
-  + getpisoHabitacion() String
-  + getpisoHabitaciona() String
-   double categoria
-   String descripcion
-   double costo
-}
-class HabitacionDecorator {
-  + HabitacionDecorator(Habitacion) 
-  + getpisoHabitaciona() String
-   double categoria
-   String descripcion
-   double costo
-}
-class Hotel {
-  + Hotel() 
-  + main(String[]) void
-}
-class Main {
-  + Main() 
-  + main(String[]) void
-}
+  ChocolateGourmet  -->  HabitacionDecorator 
+  FloresFrescas  -->  HabitacionDecorator 
+  HabitacionBasica  ..>  Habitacion 
+  HabitacionDecorator  ..>  Habitacion 
 
-ChocolateGourmet  -->  HabitacionDecorator 
-FloresFrescas  -->  HabitacionDecorator 
-HabitacionBasica  ..>  Habitacion 
-HabitacionDecorator  ..>  Habitacion 
-
-```
+  ```
